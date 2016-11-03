@@ -1,0 +1,12 @@
+
+<root>
+	<row>
+		<name>tester 5</name>
+		<email>liemphan@ilavietnam.edu.vn</email>
+		<address>123</address>
+		<phone>asd</phone>
+		<profile>Distributor</profile>
+		<province>North Kalimantan</province>
+		<feedback>test</feedback>
+	</row>
+<row><name>test</name><email>minhliemphp@gmail.com</email><address>123</address><phone>12312321</phone><profile>Distributor</profile><province>North Kalimantan</province><feedback/><created>2016-07-17 06:24:40</created></row><row><name>liem test lan cuoi</name><email>liemphan@ilavietnam.edu.vn</email><address>123</address><phone>123</phone><profile>Retailer</profile><province>Maluku</province><feedback>tester</feedback><created>2016-07-17 11:33:29</created></row></root>

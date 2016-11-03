@@ -1,0 +1,364 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,300);
+*{margin:0; padding:0};
+h1, h2, h3, h4, p {padding:0; margin:0}
+
+@mixin media($width){
+	@media screen and (max-width:$width){
+		@content;
+	}
+}
+@mixin fontRale{
+	font-family: 'Raleway', sans-serif;
+}
+
+$pupple:#a91d4f;
+$blue:#3a4651;
+$light-pupple:#d07fc5;
+$footer:#404040;
+$dark-footer:#333333;
+$text:#cccccc;
+html, body, .bg{
+	height:100%;
+}
+.page{height:100%; position:relative;}
+.header{
+	padding:20px 0;
+	height:130px;
+	text-align:center;
+	background:white;
+	img.logo{
+		margin:0 auto;
+	}
+}
+.line{
+	height:40px;
+	background:$light-pupple;
+}
+
+.wrap-content{
+	position:absolute;
+	padding-top:170px;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	.content{
+		background:url('../images/Taylor-Swift-banner.png')no-repeat;
+		background-size:cover;
+		position:relative;
+		height: 100%;
+		&:before{
+			content:'';
+			position:absolute;
+			width:100%;
+			height: 100%;
+			background:rgba(255,255,255,0.6);
+		}
+		.container-full, .row-full, .col-full{
+			height:100%;
+		}
+
+		.wrap-left, .wrap-right{
+			background:#fff;
+			height:100%;
+			display:table;
+			padding:20px;
+			.table-cell, .wrap-form{
+				display:table-cell;
+				vertical-align:middle;
+				.wrap-content-left{
+					h2.title{
+						font-size:30px;
+						@include fontRale;
+						font-weight: 600;
+						margin-bottom:10px;
+						color:#812571;
+					}
+					p.content-left{
+						font-size:16px;
+						@include fontRale;
+						line-height: 24px;
+						color:#812571;
+					}
+				}
+				.box{
+					margin-bottom:30px;
+					text-align:center;
+					h2.title{
+						font-size:25px;
+						color:$blue;
+						margin-bottom:10px;
+						font-weight:600;
+						position:relative;
+						@include media(767px){
+							font-size:18px
+						}
+						&.pupple{
+							color:$pupple;
+						}
+						&.title-img{
+							&:before{
+								content:'';
+								position:absolute;
+								left:50px;
+								@include media(979px){
+									left:50px;
+								}
+								@include media(767px){
+									left:0px;
+									top:-8px;
+									transform: scale(0.7);
+									-webkit-transform: scale(0.7);
+									-moz-transform: scale(0.7);
+								}
+							}
+						}
+						&.retailer{
+							&:before{
+								width:36px;
+								height:29px;
+								background:url('../images/ic-home.png')no-repeat;
+							}
+						}
+						&.Entrep{
+							&:before{
+								width:36px;
+								height:32px;
+								background:url('../images/ic-vest.png')no-repeat;
+							}
+						}
+						&.sale{
+							&:before{
+								width:26px;
+								height:32px;
+								background:url('../images/ic-phone.png')no-repeat;
+							}
+						}
+					}
+					p.sub-box{
+						font-size:12px;
+						color:$blue;
+						&.pupple{
+							color:$pupple;
+						}
+					}
+				}
+			}
+		}
+
+		.wrap-right{
+			background:none;
+			width:100%;
+			.wrap-form{
+				.list-error{
+					list-style-type:none;
+				}
+				input, textarea, select{
+					border:1px solid $pupple;
+					color:$pupple;
+					font-size:14px;
+					border-radius:3px;
+				}
+				input[type="text"], input[type="email"]{
+					padding:10px 15px;
+				}
+				::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				  color: $pupple;
+				}
+				::-moz-placeholder { /* Firefox 19+ */
+				  color: $pupple;
+				}
+				input[type="submit"]{
+					padding:8px 10px;
+					border-radius:3px;
+					border:1px solide $pupple;
+					font-size:14px;
+					text-transform:uppercase;
+					background:white;
+					font-weight:600;
+				}
+				.col{
+					float:left;
+					width:60%;
+					&.right{
+						width:40%;
+					}
+					@include media(767px){
+						width: 100%;
+						float:none;
+						&.right{
+							width:100%;
+						}
+					}
+				}
+				.btn-refresh{
+					cursor:pointer;
+				}
+				.refreshcaptcha, .btn-refresh{
+					display:inline-block;
+				}
+			}
+		}
+
+		.content-thanks{
+			padding:200px 20px;
+			text-align:center;
+			background:white;
+			h2.title{
+				font-size:40px;
+				color:$pupple;
+				margin-bottom:20px;
+				@include fontRale;
+			}
+			p.text-thanks{
+				font-size:20px;
+				color:$pupple;
+				@include fontRale;
+			}
+		}
+	}
+}
+
+
+.footer, {
+	background:$footer;
+	.inner-footer, .inner-under-footer{
+		max-width:1200px;
+		width:100%;
+		margin:0 auto;
+		padding:25px 0;
+		.col-footer{
+			float:left;
+			padding:0 15px;
+			@include media(479px){
+				float:none;
+			}
+		}
+		.wrap-logo-footer{
+			width:15%;
+			@include media(979px){
+				width:20%;
+			}
+			@include media(479px){
+				width:100%;
+				margin-bottom:10px;
+				img{
+					margin:0 auto;
+				}
+			}
+
+		}
+		.wrap-nav-footer{
+			width:30%;
+			@include media(979px){
+				width:40%;
+			}
+			@include media(767px){
+				width:50%;
+			}
+			@include media(479px){
+				width:100%;
+				margin-bottom: 10px;
+			}
+
+			.common-nav{
+				float:left;
+				width:40%;
+				@include media(479px){
+					width:50%;
+				}
+			}
+			ul.nav-footer{
+				list-style:none;
+				@include media(479px){
+					display:inline-block;
+					width:100%;
+					text-align: center;
+				}
+				>li{
+					a{
+						display:block;
+						font-size:14px;
+						text-transform:uppercase;
+						@include fontRale;
+						color:$text;
+						&:hover, &:focus{
+							text-decoration:none !important;
+							outline:none !important;
+						}
+					}
+					ul.subnav-footer{
+						margin-top:10px;
+						list-style:none;
+						>li a{
+							display:block;
+							font-size:14px;
+							@include fontRale;
+							color:$text;
+							text-transform: capitalize;
+							margin-bottom:5px;
+							&:hover, &:focus{
+								text-decoration:none !important;
+								outline:none !important;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.wrap-social{
+			width:15%;
+			@include media(979px){
+				width:40%;
+			}
+			@include media(767px){
+				width:25%;
+			}
+			@include media(479px){
+				width:60%;
+				margin:0 auto;
+			}
+			.box-social{
+				display: inline-block;
+				padding:0 5px;
+				margin-bottom:10px;
+			}
+		}
+	}
+}
+.under-footer{
+	background:$dark-footer;
+	.inner-under-footer{
+		color:$text;
+		padding:20px 0;
+		max-width:1200px;
+		width:100%;
+		margin:0 auto;
+		@include media(767px){
+			font-size:12px;
+		}
+		.left-under, .right-under{
+			float:left;
+			width:50%;
+			font-family:"Playfair Display";
+			@include media(479px){
+				width:100%;
+			}
+		}
+		.left-under{
+			@include media(479px){
+				float:none;
+				margin-bottom:10px;
+				text-align: center;
+			}
+		}
+		.right-under{
+			text-align: right;
+			@include media(479px){
+				float:none;
+				text-align: center;
+			}
+		}
+	}
+}

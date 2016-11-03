@@ -1,0 +1,26 @@
+@if(!\File::exists(public_path().'\public\report\report.xml'))
+<root>
+	<row>
+		<name>{!!$name!!}</name>
+		<email>{!!$email!!}</email>
+		<address>{!!$address!!}</address>
+		<phone>{!!$phone!!}</phone>
+		<profile>{!!$profile!!}</profile>
+		<province>{!!$province!!}</province>
+		<feedback>{!!$feedback!!}</feedback>
+		<created>{!!$created_at!!}</created>
+	</row>
+</root>
+@else
+<row>
+	<name>{!!$name!!}</name>
+	<email>{!!$email!!}</email>
+	<address>{!!$address!!}</address>
+	<phone>{!!$phone!!}</phone>
+	<profile>{!!$profile!!}</profile>
+	<province>{!!$province!!}</province>
+	<feedback>{!!$feedback!!}</feedback>
+	<created>{!!$created_at!!}</created>
+</row>
+@endif
+
