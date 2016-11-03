@@ -8,11 +8,12 @@
     <meta name="csrf-token" content="{!! csrf_token() !!}">
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic%7CRaleway:300" type="text/css">
-    {!!HTML::style(env('PATH_FRONTEND')."/css/bootstrap.min.css")!!}
-    {!!HTML::style(env('PATH_FRONTEND')."/css/style.css")!!}
+    {!!HTML::style(asset('/assets')."/css/bootstrap.min.css")!!}
+    {!!HTML::style(asset('/assets')."/css/style.css")!!}
 
-	{!!HTML::script(env('PATH_FRONTEND')."/js/jquery-1.11.2.min.js")!!}
+	{!!HTML::script(asset('/assets')."/js/jquery-1.11.2.min.js")!!}
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
+	{!!HTML::script(asset('assets/js/select-list/js/script.js'))!!}
 
 	<!-- TRACKING -->
 		<!-- Google Analytics tracking Code -->
@@ -62,7 +63,7 @@
 	<div class="bg">
 		<div class="page">
 			<div class="header">
-				<a href="javascript:avoid()"><img src="{!!asset(env('PATH_FRONTEND').'/images/logo.png')!!}" class="img-responsive logo" alt="LOGO Parfarome"></a>
+				<a href="javascript:avoid()"><img src="{!!asset(asset('/assets').'/images/logo.png')!!}" class="img-responsive logo" alt="LOGO Parfarome"></a>
 			</div>
 
 			<div class="line"></div>
@@ -91,26 +92,31 @@
 											@endforeach
 										</ul>
 										@endif
+										<div class="selectBox">
 										{!!Form::open(array('route'=>'postRegisterTaylor','class'=>'form-register','id'=>'formRegister'))!!}
 											<div class="form-group">
-												<input type="text" name="fullname" class="form-control" placeholder="Name..." value="{!!old('fullname')!!}">
+												<input type="text" name="fullname" class="form-control" placeholder="Nama..." value="{!!old('fullname')!!}">
 											</div>
 											<div class="form-group">
 												<input type="email" name="email" class="form-control" placeholder="Email..." value="{!!old('email')!!}">
 											</div>
 											<div class="form-group">
-												<input type="text" name="address" class="form-control" placeholder="Address..." value="{!!old('address')!!}">
+												<input type="text" name="phone" class="form-control" placeholder="Telepone..." value="{!!old('phone')!!}">
 											</div>
-
 											<div class="form-group">
-												<input type="text" name="phone" class="form-control" placeholder="Phone..." value="{!!old('phone')!!}">
+												<select name="" id="" class="makeMeFancy form-control">
+													<option value="0" selected="selected" data-skip="1">Choose Your Product</option>
+													<option value="1" data-html-text="<p>Iphone 4 </p><p>128 LE QUang Dinh</p>">Iphone 4</option>
+													<option value="2" data-html-text="<p>Iphone 5 </p><p>128 LE QUang Dinh</p>">Iphone 5</option>
+													<option value="3" data-html-text="<p>Iphone 6 </p><p>128 LE QUang Dinh</p>">Iphone 6</option>
+												</select>
 											</div>
 											<div class="form-group">
 												<textarea name="feedback" rows="3" class="form-control" placeholder="Feedback..." value="{!!old('feedback')!!}"></textarea>
 											</div>
 											<div class="form-group clearfix">
 												<div class="left col">
-													<img src="{!!asset(env('PATH_FRONTEND'))!!}/images/refresh.png" alt="Refresh" class="btn-refresh" >
+													<img src="{!!asset(asset('/assets'))!!}/images/refresh.png" alt="Refresh" class="btn-refresh" >
 													<div class="refreshcaptcha">
 														{!!captcha_img()!!}
 													</div>
@@ -124,6 +130,7 @@
 												<i class="waiting"></i>
 											</div>
 										{!!Form::close()!!}
+										</div>
 									</div>
 								</div>
 							</div>
@@ -135,7 +142,7 @@
 				<!-- <div class="footer">
 					<div class="inner-footer clearfix">
 						<div class="wrap-logo-footer col-footer">
-							<a href="javascript:avoid()"><img src="{!!asset(env('PATH_FRONTEND').'/images/ic-footer.png')!!} " class="img-responsive" alt="Parfarome"></a>
+							<a href="javascript:avoid()"><img src="{!!asset(asset('/assets').'/images/ic-footer.png')!!} " class="img-responsive" alt="Parfarome"></a>
 						</div>
 						<div class="wrap-nav-footer col-footer clearfix">
 							<div class="nav1 common-nav">
@@ -160,16 +167,16 @@
 						</div>
 						<div class="wrap-social col-footer">
 							<div class="box-social">
-								<a href="javascript:avoid()"><img src="{!!asset(env('PATH_FRONTEND').'/images/ic-fa.png')!!}" height="31" width="31" alt="Facebook" title="Facebook"></a>
+								<a href="javascript:avoid()"><img src="{!!asset(asset('/assets').'/images/ic-fa.png')!!}" height="31" width="31" alt="Facebook" title="Facebook"></a>
 							</div>
 							<div class="box-social">
-								<a href="javascript:avoid()"><img src="{!!asset(env('PATH_FRONTEND').'/images/ic-twitter.png')!!}" height="31" width="31" alt="Twitter" title="Twitter"></a>
+								<a href="javascript:avoid()"><img src="{!!asset(asset('/assets').'/images/ic-twitter.png')!!}" height="31" width="31" alt="Twitter" title="Twitter"></a>
 							</div>
 							<div class="box-social">
-								<a href="javascript:avoid()"><img src="{!!asset(env('PATH_FRONTEND').'/images/ic-ins.png')!!}" height="31" width="31" alt="Instagram" title="Instagram"></a>
+								<a href="javascript:avoid()"><img src="{!!asset(asset('/assets').'/images/ic-ins.png')!!}" height="31" width="31" alt="Instagram" title="Instagram"></a>
 							</div>
 							<div class="box-social">
-								<a href="javascript:avoid()"><img src="{!!asset(env('PATH_FRONTEND').'/images/ic-in.png')!!}" height="31" width="31" alt="LikedIn" title="LikedIn"></a>
+								<a href="javascript:avoid()"><img src="{!!asset(asset('/assets').'/images/ic-in.png')!!}" height="31" width="31" alt="LikedIn" title="LikedIn"></a>
 							</div>
 						</div>
 					</div>

@@ -139,8 +139,6 @@ class ParfaromeController extends Controller {
 		Session::flash('email', $email);
 
 		return redirect()->route('thankyou');
-
-
 	}
 
 	public function thankyou(){
