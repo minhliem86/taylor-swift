@@ -191,6 +191,24 @@ html, body, .bg {
   font-size: 14px;
   border-radius: 3px;
 }
+.wrap-content .content .wrap-right .wrap-form select{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #a91d4f 50%),
+    linear-gradient(135deg, #a91d4f 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 10px) calc(1em + 2px),
+    calc(100% - 5px) calc(1em + 2px),
+    calc(100% - 2.5em) 0.5em;
+  background-size:
+    5px 5px,
+    5px 5px,
+    0px 1.5em;
+  background-repeat: no-repeat;
+}
 
 .wrap-content .content .wrap-right .wrap-form input[type="text"], .wrap-content .content .wrap-right .wrap-form input[type="email"] {
   padding: 10px 15px;

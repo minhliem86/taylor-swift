@@ -85,7 +85,11 @@ class ParfaromeController extends Controller {
 		$file = base_path('resources/files/listclient.xls');
 		if($file){
 			if(File::exists($this->filexml())){
-
+				// $xml = simplexml_load_file($this->filexml());
+				// dd($xml->row->parentNode->removeChild());
+				// foreach($xml->row as $row){
+				// 	dd($row);
+				// }
 				Excel::load($file,function($reader){
 					$reader->each(function($sheet){
 						$xml = simplexml_load_file($this->filexml());
@@ -141,7 +145,7 @@ class ParfaromeController extends Controller {
 
 		$client = new Client(['base_uri'=>'http://api.gibaroma.com/api/lead/createnewlead']);
 		$result = $client->get('http://api.gibaroma.com/api/lead/createnewlead',[
-			'query'=>['campaign'=>'parfarome-taylor','fullname'=>$name,'email'=>$email,'address'=>'','province'=>$city,'country'=>'Indonesia','phone'=>$phone,'profile'=>$shop,'message'=>$feedback]
+			'query'=>['campaign'=>'Parfarome','fullname'=>$name,'email'=>$email,'address'=>'','province'=>$city,'country'=>'Indonesia','phone'=>$phone,'subject'=>$shop,'message'=>$feedback]
 		]);
 
 		Session::flash('status', 'done');
@@ -168,7 +172,7 @@ class ParfaromeController extends Controller {
 		$response = $client->get('http://api.gibaroma.com/api/lead');
 		$body = $response->getBody();
 		$data = json_decode($body->getContents());
-		dd($data);
+		// dd($data);
 		return view('report',compact('data'));
 	}
 

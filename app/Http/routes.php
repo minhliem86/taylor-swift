@@ -12,13 +12,14 @@
 */
 
 // PARFAROME TAYLOR
+Route::get('test',function(){
+	return "asdsa";
+});
 Route::get('',['as'=>'getRegisterTaylor','uses'=>'ParfaromeController@getRegisterTaylor']);
 Route::post('parfarome-taylor',['as'=>'postRegisterTaylor','uses'=>'ParfaromeController@postRegisterTaylor']);
+Route::get('thankyou',['as'=>'thankyou','uses'=>'ParfaromeController@thankyou']);
 
-Route::post('thankyou',['as'=>'thankyou','uses'=>'ParfaromeController@thankyou']);
-
-Route::get('parfarome-report',array('as'=>'parfarome-report','uses'=>'ParfaromeController@getReport'));
-Route::get('parfarome-download',array('as'=>'parfarome-download','uses'=>'ParfaromeController@getDownloadReport'));
+Route::get('reportAPI',array('as'=>'parfarome-report','uses'=>'ParfaromeController@getReport'));
 // REFRESH CAPTCHA
 Route::post('refresh-captcha',array('as'=>'refresh-captcha','uses'=>'ParfaromeController@refreshcaptcha'));
 
