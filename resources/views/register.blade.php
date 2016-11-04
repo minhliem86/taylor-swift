@@ -9,11 +9,29 @@
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700,700italic%7CRaleway:300" type="text/css">
     {!!HTML::style(asset('/assets')."/css/bootstrap.min.css")!!}
+    {!!HTML::style('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')!!}
     {!!HTML::style(asset('/assets')."/css/style.css")!!}
+
 
 	{!!HTML::script(asset('/assets')."/js/jquery-1.11.2.min.js")!!}
 	<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
 	{!!HTML::script(asset('assets/js/select-list/js/script.js'))!!}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('select[name="city"]').change(function(){
+				var id_city = $(this).val();
+				$.ajax({
+					'url': "{!!route('ajaxShop')!!}",
+					'type': 'POST',
+					'data': {idcity:id_city,_token:$('meta[name="csrf-token"]').attr('content')},
+					success:function(data){
+						$('#ajaxForm').html(data.mes);
+					}
+				})
+			});
+
+		})
+	</script>
 
 	<!-- TRACKING -->
 		<!-- Google Analytics tracking Code -->
@@ -76,8 +94,9 @@
 								<div class="wrap-left">
 									<div class="table-cell">
 										<div class="wrap-content-left">
-											<h2 class="title">Hello fragrance lovers !!! </h2>
-											<p class="content-left">Saat ini Taylor's Perfume dari Taylor Swift menduduki peringkat teratas dan menjadi produk Parfarome yang paling diminati. Parfum ini memiliki aroma yang manis dan segar, cocok digunakan sebagai parfum harian kamu yang memiliki jiwa muda, feminim, dan penuh semangat. Daftar sekarang dan dapatkan segera Taylor's Perfume dari koleksi Parfarome di toko parfum isi ulang terdekat!</p>
+											<h2 class="title">Taylor’s Perfume oleh Taylor Swift !!!</h2>
+											<p class="content-left">Perkenalkan, sebuah parfum yang paling banyak diminati dan menduduki peringkat pertama penjualan di pasaran berdasarkan data dari Parfarome: Taylor’s Perfume oleh Taylor Swift. Dengan aroma segar dan manis, sangat cocok digunakan sebagai parfum harian bagi kamu yang berjiwa muda, feminin, dan penuh semangat. Segera miliki Taylor’s Perfume dari koleksi Parfarome di toko parfum isi ulang terdekat di kotamu!</p>
+											<p class="content-left">Daftar sekarang dan dapatkan sample Taylor Swift GRATIS!</p>
 										</div>
 									</div>
 								</div>
@@ -92,7 +111,7 @@
 											@endforeach
 										</ul>
 										@endif
-										<div class="selectBox">
+
 										{!!Form::open(array('route'=>'postRegisterTaylor','class'=>'form-register','id'=>'formRegister'))!!}
 											<div class="form-group">
 												<input type="text" name="fullname" class="form-control" placeholder="Nama..." value="{!!old('fullname')!!}">
@@ -104,12 +123,20 @@
 												<input type="text" name="phone" class="form-control" placeholder="Telepone..." value="{!!old('phone')!!}">
 											</div>
 											<div class="form-group">
-												<select name="" id="" class="makeMeFancy form-control">
-													<option value="0" selected="selected" data-skip="1">Choose Your Product</option>
-													<option value="1" data-html-text="<p>Iphone 4 </p><p>128 LE QUang Dinh</p>">Iphone 4</option>
-													<option value="2" data-html-text="<p>Iphone 5 </p><p>128 LE QUang Dinh</p>">Iphone 5</option>
-													<option value="3" data-html-text="<p>Iphone 6 </p><p>128 LE QUang Dinh</p>">Iphone 6</option>
+												<select name="city" id="" class="form-control">
+													<option value="">Silahkan pilih kota terdekat</option>
+													@foreach($arr_city as $k=>$city)
+													<option value="{!!$k!!}">{!!$city!!}</option>
+													@endforeach
 												</select>
+											</div>
+											<div class="form-group" id="ajaxForm">
+												<div class="selectBox">
+													<select name="shop" id="" class="makeMeFancy form-control">
+														<option value="0" selected="selected" data-skip="1" disabled="">Choose Your Product</option>
+
+													</select>
+												</div>
 											</div>
 											<div class="form-group">
 												<textarea name="feedback" rows="3" class="form-control" placeholder="Feedback..." value="{!!old('feedback')!!}"></textarea>
@@ -130,7 +157,6 @@
 												<i class="waiting"></i>
 											</div>
 										{!!Form::close()!!}
-										</div>
 									</div>
 								</div>
 							</div>

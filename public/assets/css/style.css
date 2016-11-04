@@ -101,6 +101,7 @@ html, body, .bg {
   font-family: 'Raleway', sans-serif;
   line-height: 24px;
   color: #812571;
+  margin-bottom:10px;
 }
 
 .wrap-content .content .wrap-left .table-cell .box, .wrap-content .content .wrap-left .wrap-form .box, .wrap-content .content .wrap-right .table-cell .box, .wrap-content .content .wrap-right .wrap-form .box {
@@ -489,13 +490,23 @@ html, body, .bg {
   width:100%;
   left:0;
   top:101%;
-
+}
+.selectBox:after{
+  content:'\f0d7';
+  font-family: FontAwesome;
+  position:absolute;
+  top:6px;
+  right:6px;
+  z-index: 10;
 }
 .tzSelect .dropDown li{
   cursor:pointer;
   border-bottom:1px solid #a91d4f;
   padding:5px 0;
 
+}
+.tzSelect .dropDown li:hover{
+  background:rgba(237,237,237,0.7);
 }
 .tzSelect .dropDown li:last-child{
   border:none;

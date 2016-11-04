@@ -24,7 +24,6 @@ class RegisterRequest extends Request {
 		return [
 			'fullname'=>'required|max:25',
 			'email' => 'required|email',
-			'address' => 'required|max:40',
 			// 'profile' =>'required',
 			'phone' => 'required|digits_between:7,20',
 			// 'province' => 'required',

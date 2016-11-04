@@ -12,7 +12,7 @@
 */
 
 // PARFAROME TAYLOR
-Route::get('test',['as'=>'getRegisterTaylor','uses'=>'ParfaromeController@getRegisterTaylor']);
+Route::get('',['as'=>'getRegisterTaylor','uses'=>'ParfaromeController@getRegisterTaylor']);
 Route::post('parfarome-taylor',['as'=>'postRegisterTaylor','uses'=>'ParfaromeController@postRegisterTaylor']);
 
 Route::post('thankyou',['as'=>'thankyou','uses'=>'ParfaromeController@thankyou']);
@@ -22,6 +22,8 @@ Route::get('parfarome-download',array('as'=>'parfarome-download','uses'=>'Parfar
 // REFRESH CAPTCHA
 Route::post('refresh-captcha',array('as'=>'refresh-captcha','uses'=>'ParfaromeController@refreshcaptcha'));
 
-Route::get('test2',function(){
-	return view('test');
-});
+Route::get('listcity',['uses'=>'ParfaromeController@getListCity']);
+Route::get('listClient',['uses'=>'ParfaromeController@buildXMLClient']);
+Route::get('getClient',['uses'=>'ParfaromeController@getListClient']);
+
+Route::post('getClient',['as'=>'ajaxShop','uses'=>'ParfaromeController@getListClient']);

@@ -13,6 +13,7 @@ use Excel;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use SoapBox\Formatter\Formatter;
+use File;
 
 class ParfaromeController extends Controller {
 
@@ -60,79 +61,87 @@ class ParfaromeController extends Controller {
 		'Other'=>'Other',
 	);
 
-
-	public function getRegister(){
-		$province = $this->province_pub;
-		$profile = $this->profile_pub;
-		return view('register')->with(compact('province','profile'));
+	public function filexml(){
+		return base_path("resources/files/listClient.xml");
 	}
 
-	public function getRegisterBahasa(){
-		$province = $this->province_pub;
-		$profile = $this->profile_pub;
-		return view('registerBahasa')->with(compact('province','profile'));
-	}
+	public $listCity = array();
 
+	public function getListCity(){
+		$file = base_path('resources/files/listcity.xls');
+		if($file){
+			Excel::load($file,function($reader){
+				$reader->each(function($sheet){
+						$this->listCity[$sheet->toArray()['idcity']] = $sheet->toArray()['city'];
+				});
+			});
+			return $this->listCity;
 
-
-	public function postRegister(RegisterRequest $request){
-		$name = $request->get('fullname');
-		$email = $request->get('email');
-		$address = $request->get('address');
-		$phone = $request->get('phone');
-		$profile = $request->get('profile');
-		$province = $request->get('province');
-		$feedback = $request->get('feedback');
-
-		$time = Carbon::now();
-		$created_at = $time->toDateTimeString();
-		$view = view('reports.log',compact('name','email','address','phone','profile','province','feedback','created_at'))->render();
-		$file = public_path().'/resources/report/report.xml';
-
-		if(\File::exists($file)){
-			$xml = simplexml_load_file($file);
-			$row = $xml->addChild('row');
-			$row->addChild('name',$name);
-			$row->addChild('email',$email);
-			$row->addChild('address',$address);
-			$row->addChild('phone',$phone);
-			$row->addChild('profile',$profile);
-			$row->addChild('province',$province);
-			$row->addChild('feedback',$feedback);
-			$row->addChild('created',$created_at);
-
-			$xml->saveXML($file);
 		}else{
+			return 'File not found';
+		}
+	}
+	public function buildXMLClient(){
+		$file = base_path('resources/files/listclient.xls');
+		if($file){
+			if(File::exists($this->filexml())){
 
+				Excel::load($file,function($reader){
+					$reader->each(function($sheet){
+						$xml = simplexml_load_file($this->filexml());
+						$row = $xml->addChild('row');
+						$row->addChild('client',$sheet->toArray()['client']);
+						$row->addChild('address',$sheet->toArray()['address']);
+						$row->addChild('idcity',$sheet->toArray()['idcity']);
+						$xml->saveXML($this->filexml());
+					});
+				});
+			}else{
+				$viewxml = view('reports.listClient')->render();
+				File::put($filexml,$viewxml);
+			}
+		}else{
+			return 'File not found';
 		}
 
-		$client = new Client(['base_uri'=>'http://api.gibaroma.com/api/lead/createnewlead']);
-		$result = $client->get('http://api.gibaroma.com/api/lead/createnewlead',[
-			'query'=>['campaign'=>'parfarome','fullname'=>$name,'email'=>$email,'address'=>$address,'province'=>$province,'country'=>'Indonesia','phone'=>$phone,'profile'=>$profile,'message'=>$feedback]
-		]);
+		return "Done";
+	}
 
-		Session::flash('status', 'done');
-		Session::flash('email', $email);
+	public function getListClient(Request $request){
+		if($request->ajax()){
+			$xml = simplexml_load_file($this->filexml());
+			$formatter = Formatter::make($xml, Formatter::XML);
+			$data = $formatter->toArray();
+			$arr_data = [];
+			foreach($data['row'] as $row){
+				if(in_array($request->idcity, $row)){
+					array_push($arr_data,$row);
+				}
+			}
+			$view = view('client',compact('arr_data'))->render();
+			return response()->json(['mes'=>$view]);
+		}else{
+			abort(404);
+		}
 
-
-
-		return redirect()->route('thankyou');
 	}
 
 	public function getRegisterTaylor(){
-		return view('register');
+		$arr_city = $this->getListCity();
+		return view('register',compact('arr_city'));
 	}
 
 	public function postRegisterTaylor(RegisterRequest $request){
 		$name = $request->get('fullname');
 		$email = $request->get('email');
-		$address = $request->get('address');
 		$phone = $request->get('phone');
+		$city = $request->get('city');
+		$shop = $request->get('shop');
 		$feedback = $request->get('feedback');
 
 		$client = new Client(['base_uri'=>'http://api.gibaroma.com/api/lead/createnewlead']);
 		$result = $client->get('http://api.gibaroma.com/api/lead/createnewlead',[
-			'query'=>['campaign'=>'parfarome-taylor','fullname'=>$name,'email'=>$email,'address'=>$address,'province'=>'null','country'=>'Indonesia','phone'=>$phone,'profile'=>'null','message'=>$feedback]
+			'query'=>['campaign'=>'parfarome-taylor','fullname'=>$name,'email'=>$email,'address'=>'','province'=>$city,'country'=>'Indonesia','phone'=>$phone,'profile'=>$shop,'message'=>$feedback]
 		]);
 
 		Session::flash('status', 'done');
@@ -155,10 +164,12 @@ class ParfaromeController extends Controller {
 	}
 
 	public function getReport(){
-		// return public_path();
-		$file = public_path().'/resources/report/report.xml';
-		$xml = simplexml_load_file($file);
-		return view('report')->with(compact('xml'));
+		$client = new Client(['base_uri'=>'http://api.gibaroma.com/api/lead']);
+		$response = $client->get('http://api.gibaroma.com/api/lead');
+		$body = $response->getBody();
+		$data = json_decode($body->getContents());
+		dd($data);
+		return view('report',compact('data'));
 	}
 
 	public function getDownloadReport(){
